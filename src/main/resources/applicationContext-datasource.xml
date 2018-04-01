@@ -77,6 +77,7 @@
     </bean>
 
     <!--对dao层的扫描-->
+    <!--因为dao层下的数据映射接口没有实现类，所以转换器MapperScannerConfig它可以将接口转换为Spring容器中的Bean，在Service中@Autowired的方法直接注入接口实例-->
     <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.mmall.dao"/>
     </bean>
