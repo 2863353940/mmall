@@ -13,8 +13,8 @@ public class Const {
 
     //用一个接口类来把常量进行分组（没有枚举类那么重）
     public interface Role{
-        int ROLE_CUSTOMER = 0;  //普通用户
-        int ROLE_ADMIN = 1;     //管理员
+        int ROLE_CUSTOMER = 1;  //普通用户
+        int ROLE_ADMIN = 0;     //管理员
     }
 
 }

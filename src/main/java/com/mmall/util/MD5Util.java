@@ -3,7 +3,7 @@ package com.mmall.util;
 import java.security.MessageDigest;
 
 /**
- * Created by geely
+ * MD5非对称加密工具
  */
 public class MD5Util {
 

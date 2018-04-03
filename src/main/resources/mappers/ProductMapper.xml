@@ -176,4 +176,49 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+
+  <!--使用pageHelper进行分页的时候会自动拼接limit，所以此sql语句结束之后不要加分号-->
+  <select id="selectList" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    from mmall_product
+    ORDER BY id ASC
+  </select>
+
+
+  <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM mmall_product
+    <where>
+      <if test="productName != null">
+        AND name LIKE #{productName}
+      </if>
+      <if test="productId != null">
+        AND id = #{productId}
+      </if>
+    </where>
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
