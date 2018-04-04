@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/manage/product")
+@RequestMapping(value = "/manage/product", method = RequestMethod.POST)
 public class ProductManageController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class ProductManageController {
      * @param product
      * @return
      */
-    @RequestMapping("save.do")
+    @RequestMapping(value = "save.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -64,13 +65,13 @@ public class ProductManageController {
     }
 
     /**
-     * 修改产品销售状态(上下架)
+     * 修改产品销售状态
      * @param session
      * @param productId
      * @param status
      * @return
      */
-    @RequestMapping("set_sale_status.do")
+    @RequestMapping(value = "set_sale_status.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse setSaleStatus(HttpSession session, Integer productId, Integer status){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -92,7 +93,7 @@ public class ProductManageController {
      * @param productId
      * @return
      */
-    @RequestMapping("set_detail.do")
+    @RequestMapping(value = "get_detail.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getDetail(HttpSession session, Integer productId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -114,7 +115,7 @@ public class ProductManageController {
      * @param pageSize
      * @return
      */
-    @RequestMapping("get_list.do")
+    @RequestMapping(value = "get_list.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -138,7 +139,7 @@ public class ProductManageController {
      * @param pageSize
      * @return
      */
-    @RequestMapping("search.do")
+    @RequestMapping(value = "search.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse productSearch(HttpSession session, String productName, Integer productId, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -159,7 +160,7 @@ public class ProductManageController {
      * @param request
      * @return
      */
-    @RequestMapping("upload.do")
+    @RequestMapping(value = "upload.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(HttpSession session, @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -191,7 +192,7 @@ public class ProductManageController {
      * @param response
      * @return
      */
-    @RequestMapping("richtext_img_upload.do")
+    @RequestMapping(value = "richtext_img_upload.do", method = RequestMethod.POST)
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
         Map resultMap = Maps.newHashMap();

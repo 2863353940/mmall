@@ -38,6 +38,6 @@ public interface ICategoryService {
      * @param categoryId
      * @return
      */
-    ServerResponse selectCategoryAndChildrenById(Integer categoryId);
+    ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 
 }

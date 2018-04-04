@@ -53,12 +53,24 @@ public interface IProductService {
     ServerResponse<PageInfo> searchProduct(String productName, Integer productId, int pageNum, int pageSize);
 
 
+    /**
+     * 前台根据id查询产品信息
+     * @param productId
+     * @return
+     */
+    ServerResponse<ProductDetailVo> getProductDetail(Integer productId);
 
 
-
-
-
-
+    /**
+     * 用户端产品搜索
+     * @param keyword
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @param orderBy
+     * @return
+     */
+    ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy);
 
 
 
