@@ -3,6 +3,7 @@ package com.mmall.service.impl;
 import com.google.common.collect.Lists;
 import com.mmall.service.IFileService;
 import com.mmall.util.FTPUtil;
+import com.mmall.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -58,15 +59,16 @@ public class FileServiceImpl implements IFileService{
             file.transferTo(targetFile);
 
             //将targetFile上传到文件服务器
-            FTPUtil.uploadFile(Lists.newArrayList(targetFile), "img");
+            FTPUtil.uploadFile(Lists.newArrayList(targetFile), PropertiesUtil.getProperty("ftp.server.http.prefix.image"));
 
             //上传结束之后，删除tomcat中的文件
-            targetFile.delete();
+            //targetFile.delete();
 
         } catch (IOException e) {
             logger.error("文件上传异常",e);
             return null;
         }
+        // 返回的文件名称为文件夹+文件名
         return targetFile.getName();
     }
 

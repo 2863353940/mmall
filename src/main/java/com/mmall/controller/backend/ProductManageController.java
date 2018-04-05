@@ -169,7 +169,7 @@ public class ProductManageController {
         }
         if(iUserService.checkAdminRole(user).isSuccess()){
             //填充业务
-            //获取的是webapp下upload文件夹的路径
+            //获取的是webapp下upload文件夹的路径(本地路径apache-tomcat-7.0.75\webapps\ROOT\upload)
             String path = request.getSession().getServletContext().getRealPath("upload");
             String targetFileName = iFileService.upload(file, path);
             String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
