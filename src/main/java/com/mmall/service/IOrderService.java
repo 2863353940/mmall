@@ -1,6 +1,8 @@
 package com.mmall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mmall.common.ServerResponse;
+import com.mmall.vo.OrderVo;
 
 import java.util.Map;
 
@@ -18,6 +20,82 @@ public interface IOrderService {
      */
     //todo 事务控制
     ServerResponse createOrder(Integer userId,Integer shippingId);
+
+    /**
+     * 取消未支付订单
+     * @param userId
+     * @param orderNo
+     * @return
+     */
+    ServerResponse<String> cancel(Integer userId,Long orderNo);
+
+
+    /**
+     * 获取购物车中勾选的商品
+     * @param userId
+     * @return
+     */
+    ServerResponse getOrderCartProduct(Integer userId);
+
+
+    /**
+     * 查询订单详细
+     * @param userId
+     * @param orderNo
+     * @return
+     */
+    ServerResponse<OrderVo> getOrderDetail(Integer userId, Long orderNo);
+
+
+    /**
+     * 查询订单列表
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ServerResponse<PageInfo> getOrderList(Integer userId, int pageNum, int pageSize);
+
+
+
+
+
+    /**********************************************************后台接口************************************************************************/
+
+    /**
+     * 后台查询列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ServerResponse<PageInfo> manageList(int pageNum,int pageSize);
+
+    /**
+     * 后台查询详细
+     * @param orderNo
+     * @return
+     */
+    ServerResponse<OrderVo> manageDetail(Long orderNo);
+
+    /**
+     * 后台订单搜索
+     * @param orderNo
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ServerResponse<PageInfo> manageSearch(Long orderNo,int pageNum,int pageSize);
+
+    /**
+     * 后台订单发货
+     * @param orderNo
+     * @return
+     */
+    ServerResponse<String> manageSendGoods(Long orderNo);
+
+    /*************************************************************OVER************************************************************************/
+
+
 
 
 
@@ -52,7 +130,7 @@ public interface IOrderService {
      * 支付宝预下单接口(返回支付二维码)
      * @param orderNo   订单号
      * @param userId    用户id
-     * @param path      tomact下 webapp下upload文件夹    本地路径tomcat\webapps\ROOT\upload
+     * @param path      tomact下 webapp下upload文件夹    本地路径tomcat、webapps、ROOT、upload
      * @return
      */
     ServerResponse pay(Long orderNo, Integer userId, String path);
