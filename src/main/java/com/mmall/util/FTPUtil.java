@@ -37,14 +37,14 @@ public class FTPUtil {
     /**
      * FTP上传文件暴露方法
      * @param fileList      文件集合
-     * @param remotePath    远程路径
+     * @param remotePath    远程路径下的文件夹，传空根目录下
      * @return
      */
     public static boolean uploadFile(List<File> fileList, String remotePath) throws IOException {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, ftpPort, ftpUser, ftpPass);
         logger.info("开始连接ftp服务器");
         boolean result = ftpUtil.startUploadFile(remotePath, fileList);
-        logger.info("开始连接ftp服务器,结束上传,上传结果:{}{}", remotePath, fileList);
+        logger.info("开始连接ftp服务器,结束上传,上传结果:{},文件夹:{}", result, remotePath+File.separator);
         return result;
     }
 

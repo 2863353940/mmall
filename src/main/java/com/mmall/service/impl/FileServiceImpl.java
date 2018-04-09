@@ -59,7 +59,7 @@ public class FileServiceImpl implements IFileService{
             file.transferTo(targetFile);
 
             //将targetFile上传到文件服务器
-            FTPUtil.uploadFile(Lists.newArrayList(targetFile), PropertiesUtil.getProperty("ftp.server.http.prefix.image"));
+            FTPUtil.uploadFile(Lists.newArrayList(targetFile), "");
 
             //上传结束之后，删除tomcat中的文件
             //targetFile.delete();
