@@ -44,7 +44,7 @@ public class FTPUtil {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, ftpPort, ftpUser, ftpPass);
         logger.info("开始连接ftp服务器");
         boolean result = ftpUtil.startUploadFile(remotePath, fileList);
-        logger.info("开始连接ftp服务器,结束上传,上传结果:{}");
+        logger.info("开始连接ftp服务器,结束上传,上传结果:{}{}", remotePath, fileList);
         return result;
     }
 
