@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mmall.service.IFileService;
 import com.mmall.util.FTPUtil;
 import com.mmall.util.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,10 @@ import java.util.UUID;
  * Created by Administrator on 2018/4/3.
  */
 @Service("iFileService")
+@Slf4j
 public class FileServiceImpl implements IFileService{
 
-    private static Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
+//    private static Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     /**
      * 文件上传
@@ -44,7 +46,7 @@ public class FileServiceImpl implements IFileService{
         String fileExtensionName = fileName.substring(fileName.lastIndexOf(".")+1);
         //设置新的文件名
         String uploadFileName = UUID.randomUUID().toString()+"."+fileExtensionName;
-        logger.info("开始上传文件,上传文件的文件名:{},上传的路径:{},新文件名:{}", fileName, path, uploadFileName);
+        log.info("开始上传文件,上传文件的文件名:{},上传的路径:{},新文件名:{}", fileName, path, uploadFileName);
 
         File fileDir = new File(path);
         //判断要上传的文件路径是否存在
@@ -65,7 +67,7 @@ public class FileServiceImpl implements IFileService{
             //targetFile.delete();
 
         } catch (IOException e) {
-            logger.error("文件上传异常",e);
+            log.error("文件上传异常",e);
             return null;
         }
         // 返回的文件名称为文件夹+文件名

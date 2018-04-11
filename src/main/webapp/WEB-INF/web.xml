@@ -24,6 +24,17 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--   二期新增重置session时间的filter   拦截所有.do请求  -->
+    <filter>
+        <filter-name>sessionExpireFilter</filter-name>
+        <filter-class>com.mmall.controller.common.SessionExpireFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionExpireFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    
+
 
     <!--web容器启动和关闭的监听器-->
     <listener>
