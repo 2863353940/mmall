@@ -7,7 +7,7 @@ import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class UserController {
             CookieUtil.writLoginToken(httpServletResponse, session.getId());
 
             // 2.将用户登录信息序列化之后存放redis中，键值为Token，有效时间30分钟
-            RedisPoolUtil.setEx(session.getId(), JsonUtil.obj2String(response.getData()), Const.RedisCacheExTime.REDIS_SESSION_EXTIME);
+            RedisShardedPoolUtil.setEx(session.getId(), JsonUtil.obj2String(response.getData()), Const.RedisCacheExTime.REDIS_SESSION_EXTIME);
         }
         return response;
     }
@@ -78,7 +78,7 @@ public class UserController {
         // 从cookie中删除token
         CookieUtil.delLoginToken(request, response);
         // 从redis中删除用户信息
-        RedisPoolUtil.del(loginToken);
+        RedisShardedPoolUtil.del(loginToken);
 
         return ServerResponse.createBySuccess();
     }
@@ -120,7 +120,7 @@ public class UserController {
         String loginToken = CookieUtil.readLoginToken(request);
 
         // 2.获取redis中用户的信息
-        String jsonUser = RedisPoolUtil.get(loginToken);
+        String jsonUser = RedisShardedPoolUtil.get(loginToken);
 
         // 3.对用户信息的json字符串进行反序列化
         User user = JsonUtil.string2Obj(jsonUser, User.class);
