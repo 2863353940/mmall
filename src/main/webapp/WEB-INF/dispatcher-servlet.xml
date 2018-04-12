@@ -8,9 +8,14 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--springMVC配置文件-->
-
-    <context:component-scan base-package="com.mmall" annotation-config="true"/>
+    <!--
+        springMVC配置文件
+        use-default-filters用来指示是否自动扫描带有@Component、@Repository、@Service和@Controller的类。默认为true，即默认扫描。
+        annotation-config="true"    暂时移除
+    -->
+    <context:component-scan base-package="com.mmall.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
