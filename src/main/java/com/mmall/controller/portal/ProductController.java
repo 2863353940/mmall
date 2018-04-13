@@ -6,9 +6,7 @@ import com.mmall.service.IProductService;
 import com.mmall.vo.ProductDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Administrator on 2018/4/3.
@@ -20,6 +18,17 @@ public class ProductController {
 
     @Autowired
     private IProductService iProductService;
+
+    /**
+     * 根据id查询产品信息（RESTful风格接口）
+     * @param productId
+     * @return
+     */
+    @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<ProductDetailVo> detailRESTful(@PathVariable Integer productId){
+        return iProductService.getProductDetail(productId);
+    }
 
     /**
      * 根据id查询产品信息

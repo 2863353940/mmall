@@ -65,12 +65,22 @@ public interface OrderMapper {
 
 
 
+    // 二期新增定时关单
 
+    /**
+     * 查询所有超时未支付的订单
+     * @param status
+     * @param date
+     * @return
+     */
+    List<Order> selectOrderStatusByCreateTime(@Param("status") Integer status, @Param("date") String date);
 
-
-
-
-
+    /**
+     * 修改订单状态为已取消 0
+     * @param id
+     * @return
+     */
+    Integer closeOrderByOrderId(Integer id);
 
 
 

@@ -241,11 +241,26 @@
 
 
 
+  <!-- <![CDATA[ 转义的语句 ]]> -->
+  <select id="selectOrderStatusByCreateTime" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM mmall_order
+    WHERE status = #{status}
+    <![CDATA[
+    AND create_time <= #{date}
+    ]]>
+    ORDER BY create_time DESC
+  </select>
 
 
+  <select id="closeOrderByOrderId" parameterType="int" resultType="java.lang.Integer">
 
+    UPDATE mmall_order
+    SET status = 0
+    WHERE id = #{id}
 
-
+  </select>
 
 
 

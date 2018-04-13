@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!--注解扫描-->
     <context:component-scan base-package="com.mmall">   <!-- annotation-config="true" 暂时移除  -->
@@ -16,10 +16,16 @@
 
     <!--<context:annotation-config/>-->
 
+
+    <!-- Spring Schedule 定时任务 -->
+    <task:annotation-driven />
+
     <aop:aspectj-autoproxy/>
 
 
     <import resource="applicationContext-datasource.xml"/>
-    <import resource="applicationContext-spring-session.xml"/>
+
+    <!-- spring session 解决单点登录，但是不支持分布式redis，但是对业务代码没有侵入性 -->
+    <!--<import resource="applicationContext-spring-session.xml"/>-->
 
 </beans>

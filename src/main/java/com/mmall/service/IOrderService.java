@@ -104,16 +104,6 @@ public interface IOrderService {
 
 
 
-
-
-
-
-
-
-
-
-
-
     /**
      * 查询订单是否支付
      * @param userId
@@ -121,6 +111,15 @@ public interface IOrderService {
      * @return
      */
     ServerResponse queryOrderPayStatus(Integer userId,Long orderNo);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -144,10 +143,21 @@ public interface IOrderService {
     ServerResponse aliCallback(Map<String,String> params);
 
 
+    /***********************************************************支付宝支付OVER******************************************************************/
 
 
 
 
+
+
+
+
+
+    /**
+     * hour个小时以内未付款的订单，进行关闭
+     * @param hour
+     */
+    void closeOrder(int hour);
 
 
 

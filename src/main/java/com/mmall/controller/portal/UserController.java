@@ -38,7 +38,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "login.do", method = RequestMethod.POST)
+    @RequestMapping(value = "login.do", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> login(HttpServletResponse httpServletResponse, String username, String password, HttpSession session){
         ServerResponse<User> response = iUserService.login(username, password);
@@ -68,7 +68,7 @@ public class UserController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
+    @RequestMapping(value = "logout.do", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> logout(HttpServletRequest request, HttpServletResponse response){
         //session.removeAttribute(Const.CURRENT_USER);

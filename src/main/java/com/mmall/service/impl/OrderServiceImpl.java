@@ -29,6 +29,7 @@ import com.mmall.vo.OrderVo;
 import com.mmall.vo.ShippingVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -505,20 +506,6 @@ public class OrderServiceImpl implements IOrderService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 查询订单是否支付
      * @param userId
@@ -536,6 +523,8 @@ public class OrderServiceImpl implements IOrderService {
         }
         return ServerResponse.createByError();
     }
+
+
 
 
 
@@ -737,5 +726,66 @@ public class OrderServiceImpl implements IOrderService {
 
         return ServerResponse.createBySuccess();
     }
+
+
+    /****************************************************支付宝支付OVER*************************************************************/
+
+
+
+
+
+
+
+    /**
+     * hour个小时以内未付款的订单，进行关闭
+     * @param hour
+     */
+    @Override
+    public void closeOrder(int hour){
+
+        // create_time <= new date - hour
+
+        Date closeDateTime = DateUtils.addHours(new Date(), -hour);
+
+        // 查询所有超时未支付的订单
+        List<Order> orderList = orderMapper.selectOrderStatusByCreateTime(Const.OrderStatusEnum.NO_PAY.getCode(), DateTimeUtil.dateToStr(closeDateTime));
+
+        for(Order order : orderList){
+
+            // 根据订单号查询所有订单商品
+            List<OrderItem> orderItemList = orderItemMapper.getByOrderNo(order.getOrderNo());
+
+            for(OrderItem orderItem : orderItemList){
+
+                // 根据商品id查询商品库存，一定要用主键where条件，防止锁表。同时必须是支持MySQL的InnoDB。
+                Integer stock = productMapper.selectStockByProductId(orderItem.getProductId());
+
+                // 考虑到已生成的订单里的商品，被删除的情况
+                if(stock == null){
+                    continue;
+                }
+
+                Product product = new Product();
+                product.setId(orderItem.getProductId());
+                product.setStock(stock+orderItem.getQuantity());
+                // 修改商品库存
+                productMapper.updateByPrimaryKeySelective(product);
+
+            }
+
+            // 所有订单商品库存加完，修改订单状态为0
+            orderMapper.closeOrderByOrderId(order.getId());
+            logger.info("关闭订单OrderNo：{}",order.getOrderNo());
+        }
+
+
+    }
+
+
+
+
+
+
+
 
 }
