@@ -7,6 +7,7 @@ import com.mmall.dao.UserMapper;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,7 +114,10 @@ public class UserServiceImpl implements IUserService {
             //说明问题及答案就是这个用户的，并且是正确的
             String forgetToken = UUID.randomUUID().toString();
             //将Token放入本地缓存中
-            TokenCache.setKey(TokenCache.TOKEN_PREFIX+username, forgetToken);
+            //TokenCache.setKey(TokenCache.TOKEN_PREFIX+username, forgetToken);
+
+            // 将token放入redis中
+            RedisShardedPoolUtil.setEx(TokenCache.TOKEN_PREFIX+username, forgetToken, 60*60*12);
             return ServerResponse.createBySuccess(forgetToken);
         }
         return ServerResponse.createByErrorMessage("问题的答案错误");

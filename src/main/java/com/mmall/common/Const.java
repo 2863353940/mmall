@@ -9,6 +9,11 @@ import java.util.Set;
  */
 public class Const {
 
+
+    public interface  REDIS_LOCK{
+        String CLOSE_ORDER_TASK_LOCK = "CLOSE_ORDER_TASK_LOCK";//关闭订单的分布式锁
+    }
+
     //当前用户
     public static final String CURRENT_USER = "currentUser";
 

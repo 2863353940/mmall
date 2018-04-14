@@ -26,6 +26,6 @@
     <import resource="applicationContext-datasource.xml"/>
 
     <!-- spring session 解决单点登录，但是不支持分布式redis，但是对业务代码没有侵入性 -->
-    <!--<import resource="applicationContext-spring-session.xml"/>-->
+    <import resource="applicationContext-spring-session.xml"/>
 
 </beans>

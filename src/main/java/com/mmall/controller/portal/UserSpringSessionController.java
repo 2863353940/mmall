@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by Administrator on 2018/4/1.
+ * Created by zwy on 2018/4/1.
+ * 基于SpringSession + redis实现单点登录的Demo
  */
 @Controller
 @RequestMapping("/user/springsession")
